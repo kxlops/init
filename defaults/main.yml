@@ -1,0 +1,13 @@
+---
+kxlops_timezone: America/Chicago
+
+kxlops_init_packages_to_remove: []
+kxlops_init_packages_to_install: []
+
+kxlops_yum_update_all: yes
+
+#remove not implemented yet
+kxlops_init_pip_to_remove: []
+kxlops_init_pip_to_install: []
+
+kxlops_init_aws_config: false

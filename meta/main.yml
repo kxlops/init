@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  author: chriskxl@gmail.com
+  description: Some basic stuff that should be setup on intialization of a new server
+  company: KXL
+  license: GNUv3
+  min_ansible_version: 2.2
+  platforms:
+    - name: EL
+      versions:
+        - all
+    - name: GenericUNIX
+      versions:
+        - all
+    - name: Fedora
+      versions:
+        - all
+  galaxy_tags:
+    - system
+    - development
+dependencies: []

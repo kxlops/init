@@ -1,0 +1,6 @@
+---
+- name: Copy and Execute hostname setup
+  script: '{{ base_path }}/roles/kxlops.init/files/userdata.sh'
+  register: myoutput
+
+- debug: msg='{{ myoutput }}'

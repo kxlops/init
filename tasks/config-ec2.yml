@@ -1,0 +1,46 @@
+---
+#- set_fact: unique_id="{{ ec2_private_ip_address.split('.')[2:4] | join('.') }}" #last 2 octets of server ip
+#  tags:
+#    - tag-update
+
+# @TODO make me work arrrrhhh
+
+#- name: Ensure tags are present on a resource
+#  ec2_tag:
+#    region: '{{ec2_region}}'
+#    resource: '{{ec2_id}}'
+#    state: present
+#    tags:
+#      unique_id: "{{ unique_id }}"
+#      Name: '{{ ec2_tag_project }}-{{ ec2_tag_environment }}-{{ ec2_tags_role | default('') }}-{{ unique_id | default('')}}'
+#  when: ec2_tag_aws_autoscaling_groupName is undefined
+#  tags:
+#    - tag-update
+
+
+#TASK [kxlops.init : Ensure tags are present on a resource] *****************************************************************************************************************************
+#fatal: [10.93.140.44]: FAILED! => {"changed": false, "failed": true, "msg": "No handler was ready to authenticate. 1 handlers were checked. ['HmacAuthV4Handler'] Check your credentials"}
+#fatal: [10.93.140.217]: FAILED! => {"changed": false, "failed": true, "msg": "No handler was ready to authenticate. 1 handlers were checked. ['HmacAuthV4Handler'] Check your credentials"}
+
+
+#- name: Ensure tags are present on a resource
+#  local_action:
+#    module: ec2_tag
+#    region: '{{ec2_region}}'
+#    resource: '{{ec2_id}}'
+#    state: present
+#    tags:
+#      unique_id: "{{ unique_id }}"
+#      Name: '{{ ec2_tag_project }}-{{ ec2_tag_environment }}-{{ ec2_tags_role | default('') }}-{{ unique_id | default('')}}'
+#  when: ec2_tag_aws_autoscaling_groupName is undefined
+#  tags:
+#    - tag-update
+
+# @todo implement the task below with user conditionals...
+
+#- name: Update hostname using AWS name tag
+#  hostname: name={{ec2_tag_Name}}
+#  become: true
+#  tags:
+#   - hostname
+#  when: ec2_tag_Name != "" and ec2_tag_Name is defined and kxlops_common_nametag_as_hostname is defined and kxlops_common_nametag_as_hostname == true
