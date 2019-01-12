@@ -1,7 +1,7 @@
 ---
-- name: set timezone to '{{ kxlops_timezone }}'
+- name: set timezone to '{{ kxlops_init_timezone }}'
   timezone:
-    name: '{{ kxlops_timezone }}'
+    name: '{{ kxlops_init_timezone }}'
   become: yes
   tags:
     - timezone
@@ -31,7 +31,7 @@
   yum:
     name: '*'
     state: latest
-  when: kxlops_yum_update_all
+  when: kxlops_init_yum_update_all
   become: yes
   tags:
     - yum-update-all
