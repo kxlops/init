@@ -1,7 +1,10 @@
 ---
+kxlops_init_os_family: ubuntu
+
 kxlops_init_timezone: America/Chicago
 
-kxlops_init_aws_path: "{{ role_path }}/files/userdata.sh"
+kxlops_init_script_run: false
+kxlops_init_script_path: "{{ playbook_dir }}/files/kxlops-init/setup.sh"
 
 kxlops_init_packages_to_remove: []
 kxlops_init_packages_to_install: []
@@ -13,3 +16,4 @@ kxlops_init_pip_to_remove: []
 kxlops_init_pip_to_install: []
 
 kxlops_init_aws_config: false
+

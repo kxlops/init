@@ -6,51 +6,27 @@
   tags:
     - timezone
 
-- name: Cleaning task for yum
-  command: /usr/bin/yum clean all
-  tags:
-    - yumcleanall
+# OS Tasks
 
-- name: Remove unneeded packages
-  yum: pkg={{ item }} state=absent
-  with_items: '{{ kxlops_init_packages_to_remove }}'
-  when: kxlops_init_packages_to_remove | default('false')
+- include: "{{ kxlops_init_os_family }}/main.yml"
+
+- name: Remove PIP packages
+  pip: name={{ item.name }} extra_args={{ item.extra }}
+  with_items: '{{ kxlops_init_pip_to_remove }}'
   become: yes
   tags:
-    - yum-remove
+    - package-install
 
-- name: Install packages
-  yum: pkg={{ item }} state=present
-  with_items: '{{ kxlops_init_packages_to_install }}'
-  when: kxlops_init_packages_to_install | default('false')
-  become: yes
-  tags:
-    - yum-install
-
-- name: upgrade all packages
-  yum:
-    name: '*'
-    state: latest
-  when: kxlops_init_yum_update_all
-  become: yes
-  tags:
-    - yum-update-all
-
-- name: Install pip packages
+- name: Install PIP packages
   pip:
     name: '{{ item.name }}'
     extra_args: '{{ item.extra }}'
   with_items: '{{ kxlops_init_pip_to_install }}'
   become: yes
 
-- include: config-hostname.yml
-  tags:
-    - config-hostname
-  become: yes
-  when: kxlops_init_aws_config
+- name: Copy and Execute script
+  script: "{{ kxlops_init_script_path }}"
+  register: script_output
+  when: kxlops_init_script_run
 
-# @TODO work in progress
-#- include: config-ec2.yml
-#  tags:
-#    - config-ec2
-#  become: yes
+- debug: msg='{{ script_output }}'

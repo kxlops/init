@@ -1,6 +1,0 @@
----
-- name: Copy and Execute hostname setup
-  script: "{{ kxlops_init_aws_path }}"
-  register: myoutput
-
-- debug: msg='{{ myoutput }}'

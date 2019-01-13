@@ -1,0 +1,24 @@
+---
+# Ubuntu
+
+- name: Clean APT packages cache
+  apt: update_cache=yes
+
+- name: APT safe-upgrade
+  apt: upgrade=dist
+
+- name: Remove OS packages
+  apt: state=absent pkg={{ item }}
+  with_items: '{{ kxlops_init_os_to_remove }}'
+  when: kxlops_init_os_to_remove | default('false')
+  become: yes
+  tags:
+    - package-remove
+
+- name: Install OS packages
+  apt: pkg={{ item }} state=present
+  with_items: '{{ kxlops_init_os_to_install }}'
+  when: kxlops_init_os_to_install | default('false')
+  become: yes
+  tags:
+    - package-install

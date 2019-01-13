@@ -4,17 +4,19 @@ galaxy_info:
   description: Some basic stuff that should be setup on intialization of a new server
   company: KXL
   license: GNUv3
-  min_ansible_version: 2.2
+  min_ansible_version: 2.4
   platforms:
     - name: EL
       versions:
-        - all
-    - name: GenericUNIX
+        - 6
+        - 7
+    - name: Debian
       versions:
         - all
-    - name: Fedora
+    - name: Ubuntu
       versions:
-        - all
+        - trusty
+        - xenial
   galaxy_tags:
     - system
     - development
