@@ -6,23 +6,21 @@
   tags:
     - timezone
 
-# OS Tasks
-
-- include: "{{ kxlops_init_os_family }}/main.yml"
+- include_tasks: "{{ kxlops_init_os_family }}/main.yml"
 
 - name: Remove PIP packages
-  pip: name={{ item.name }} extra_args={{ item.extra }}
+  pip: state=absent name={{ item.name }} extra_args={{ item.extra }}
   with_items: '{{ kxlops_init_pip_to_remove }}'
   become: yes
   tags:
-    - package-install
+    - package-pip-remove
 
 - name: Install PIP packages
-  pip:
-    name: '{{ item.name }}'
-    extra_args: '{{ item.extra }}'
+  pip: state=present name={{ item.name }} extra_args={{ item.extra }}
   with_items: '{{ kxlops_init_pip_to_install }}'
   become: yes
+  tags:
+    - package-pip-install
 
 - name: Copy and Execute script
   script: "{{ kxlops_init_script_path }}"
