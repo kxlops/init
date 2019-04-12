@@ -3,9 +3,11 @@
 
 - name: Clean APT packages cache
   apt: update_cache=yes
+  become: yes
 
 - name: APT safe-upgrade
   apt: upgrade=dist
+  become: yes
 
 - name: Remove OS packages
   apt: state=absent pkg={{ item }}
